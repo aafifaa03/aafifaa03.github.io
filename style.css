@@ -417,6 +417,7 @@ img {
     color: var(--color-text-light);
     margin-bottom: 16px;
     font-size: 0.95rem;
+    text-align: justify;
 }
 
 .about-details {
