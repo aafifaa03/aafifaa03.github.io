@@ -135,6 +135,12 @@
         </div>
     </footer>
 
+    <!-- Image Lightbox -->
+    <div class="lightbox-overlay" id="imageLightbox">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img id="lightboxImg" src="" alt="Full size image">
+    </div>
+
     <script>
         // Mobile Nav Toggle
         const navToggle = document.getElementById('navToggle');
@@ -225,7 +231,7 @@
             // Certificate Image
             const certImage = document.getElementById('modalCertImage');
             if (cert.image) {
-                certImage.innerHTML = `<img src="${cert.image}" alt="${cert.title}">`;
+                certImage.innerHTML = `<img src="${cert.image}" alt="${cert.title}" onclick="openLightbox('${cert.image}')">`;
             } else {
                 certImage.innerHTML = `
                     <div class="modal-gallery-placeholder">
@@ -256,7 +262,34 @@
 
         // Close on Escape key
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
+            if (e.key === 'Escape') {
+                const lightbox = document.getElementById('imageLightbox');
+                if (lightbox.classList.contains('active')) {
+                    closeLightbox();
+                } else {
+                    closeModal();
+                }
+            }
+        });
+
+        // ===== Image Lightbox =====
+        function openLightbox(src) {
+            const lightbox = document.getElementById('imageLightbox');
+            const img = document.getElementById('lightboxImg');
+            img.src = src;
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('imageLightbox');
+            lightbox.classList.remove('active');
+            document.getElementById('lightboxImg').src = '';
+        }
+
+        document.getElementById('imageLightbox').addEventListener('click', (e) => {
+            if (e.target !== document.getElementById('lightboxImg')) {
+                closeLightbox();
+            }
         });
     </script>
 </body>

@@ -138,6 +138,12 @@
         </div>
     </footer>
 
+    <!-- Image Lightbox -->
+    <div class="lightbox-overlay" id="imageLightbox">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img id="lightboxImg" src="" alt="Full size image">
+    </div>
+
     <script>
         // Mobile Nav Toggle
         const navToggle = document.getElementById('navToggle');
@@ -252,7 +258,7 @@
             const gallery = document.getElementById('modalGallery');
             if (project.images.length > 0) {
                 gallery.innerHTML = project.images.map(img =>
-                    `<div class="modal-gallery-item"><img src="${img}" alt="${project.title} screenshot"></div>`
+                    `<div class="modal-gallery-item"><img src="${img}" alt="${project.title} screenshot" onclick="openLightbox('${img}')"></div>`
                 ).join('');
                 gallery.style.display = 'grid';
             } else {
@@ -286,7 +292,34 @@
 
         // Close on Escape key
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
+            if (e.key === 'Escape') {
+                const lightbox = document.getElementById('imageLightbox');
+                if (lightbox.classList.contains('active')) {
+                    closeLightbox();
+                } else {
+                    closeModal();
+                }
+            }
+        });
+
+        // ===== Image Lightbox =====
+        function openLightbox(src) {
+            const lightbox = document.getElementById('imageLightbox');
+            const img = document.getElementById('lightboxImg');
+            img.src = src;
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('imageLightbox');
+            lightbox.classList.remove('active');
+            document.getElementById('lightboxImg').src = '';
+        }
+
+        document.getElementById('imageLightbox').addEventListener('click', (e) => {
+            if (e.target !== document.getElementById('lightboxImg')) {
+                closeLightbox();
+            }
         });
     </script>
 </body>
