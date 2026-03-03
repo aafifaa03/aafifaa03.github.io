@@ -1143,6 +1143,7 @@ img {
 
 .modal-description p {
     margin-bottom: 12px;
+    text-align: justify;
 }
 
 .modal-description strong {
