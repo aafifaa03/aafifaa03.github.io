@@ -833,10 +833,14 @@ img {
 /* ===== Page Header (Sub-pages) ===== */
 .page-header {
     position: relative;
-    padding: 160px 0 80px;
+    padding: 160px 24px 80px;
     text-align: center;
     background: linear-gradient(135deg, #3B2F2F 0%, #5C4033 50%, #8B6F47 100%);
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 320px;
 }
 
 .page-header::before {
@@ -865,14 +869,19 @@ img {
     z-index: 2;
     padding: 0 24px;
     animation: fadeInUp 1s ease;
+    text-align: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .page-header-content h1 {
     font-family: var(--font-heading);
     font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: 700;
-    color: var(--color-white);
+    color: #FFFFFF;
     margin-bottom: 12px;
+    text-align: center;
 }
 
 .page-header-content p {
@@ -881,6 +890,7 @@ img {
     color: rgba(255, 255, 255, 0.7);
     margin-bottom: 24px;
     letter-spacing: 0.5px;
+    text-align: center;
 }
 
 .breadcrumb {
@@ -906,7 +916,9 @@ img {
 
 /* ===== Section View All Button ===== */
 .section-view-all {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 40px;
 }
 
@@ -964,27 +976,20 @@ img {
 }
 
 /* ===== Responsive ===== */
-@media (max-width: 992px) {
-    .about-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
+
+/* Slightly smaller laptops — tighten nav spacing */
+@media (max-width: 1200px) {
+    .nav-links {
+        gap: 18px;
     }
 
-    .about-image-wrapper {
-        max-width: 350px;
-        margin: 0 auto;
-    }
-
-    .projects-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .contact-grid {
-        grid-template-columns: 1fr;
+    .nav-links a {
+        font-size: 0.82rem;
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+    /* Switch to hamburger menu on tablets & small laptops */
     .nav-links {
         position: fixed;
         top: 0;
@@ -1024,7 +1029,29 @@ img {
     .nav-toggle.active span:nth-child(3) {
         transform: rotate(-45deg) translate(5px, -5px);
     }
+}
 
+@media (max-width: 992px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .about-image-wrapper {
+        max-width: 350px;
+        margin: 0 auto;
+    }
+
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
     .section {
         padding: 70px 0;
     }
