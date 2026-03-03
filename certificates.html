@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificates | Puteri Nur Aliyah Afifa</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Afifa</a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#education">Education</a></li>
+                <li><a href="index.html#experience">Experience</a></li>
+                <li><a href="index.html#skills">Skills</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="certificates.html" class="active">Certificates</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-overlay"></div>
+        <div class="page-header-content">
+            <h1>Certificates</h1>
+            <p>Professional certifications and achievements</p>
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Certificates</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section class="section" id="certificates">
+        <div class="container">
+            <div class="projects-grid">
+                <div class="project-card" data-aos="fade-up">
+                    <div class="project-image">
+                        <div class="project-image-placeholder">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Certificate Title 1</h3>
+                        <p>Issuing organization and description of the certification.</p>
+                        <div class="project-tags">
+                            <span>Certification</span>
+                            <span>Year</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" data-aos="fade-up">
+                    <div class="project-image">
+                        <div class="project-image-placeholder">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Certificate Title 2</h3>
+                        <p>Issuing organization and description of the certification.</p>
+                        <div class="project-tags">
+                            <span>Certification</span>
+                            <span>Year</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" data-aos="fade-up">
+                    <div class="project-image">
+                        <div class="project-image-placeholder">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Certificate Title 3</h3>
+                        <p>Issuing organization and description of the certification.</p>
+                        <div class="project-tags">
+                            <span>Certification</span>
+                            <span>Year</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2026 Puteri Afifa. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="index.html#about">About</a>
+                    <a href="certificates.html">Certificates</a>
+                    <a href="index.html#contact">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Nav Toggle
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+                navToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Scroll Animations
+        const animatedElements = document.querySelectorAll('.project-card');
+        animatedElements.forEach(el => el.classList.add('animate-on-scroll'));
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('visible'), index * 100);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        animatedElements.forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
