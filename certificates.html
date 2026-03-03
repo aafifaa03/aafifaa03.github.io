@@ -52,45 +52,51 @@
     <section class="section" id="certificates">
         <div class="container">
             <div class="projects-grid">
-                <div class="project-card" data-aos="fade-up">
+                <div class="project-card" data-aos="fade-up" onclick="openCertModal(0)">
                     <div class="project-image">
                         <div class="project-image-placeholder">
                             <i class="fas fa-certificate"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <span class="project-link"><i class="fas fa-expand"></i></span>
                         </div>
                     </div>
                     <div class="project-info">
                         <h3>Certificate Title 1</h3>
-                        <p>Issuing organization and description of the certification.</p>
                         <div class="project-tags">
                             <span>Certification</span>
                             <span>Year</span>
                         </div>
                     </div>
                 </div>
-                <div class="project-card" data-aos="fade-up">
+                <div class="project-card" data-aos="fade-up" onclick="openCertModal(1)">
                     <div class="project-image">
                         <div class="project-image-placeholder">
                             <i class="fas fa-certificate"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <span class="project-link"><i class="fas fa-expand"></i></span>
                         </div>
                     </div>
                     <div class="project-info">
                         <h3>Certificate Title 2</h3>
-                        <p>Issuing organization and description of the certification.</p>
                         <div class="project-tags">
                             <span>Certification</span>
                             <span>Year</span>
                         </div>
                     </div>
                 </div>
-                <div class="project-card" data-aos="fade-up">
+                <div class="project-card" data-aos="fade-up" onclick="openCertModal(2)">
                     <div class="project-image">
                         <div class="project-image-placeholder">
                             <i class="fas fa-certificate"></i>
                         </div>
+                        <div class="project-overlay">
+                            <span class="project-link"><i class="fas fa-expand"></i></span>
+                        </div>
                     </div>
                     <div class="project-info">
                         <h3>Certificate Title 3</h3>
-                        <p>Issuing organization and description of the certification.</p>
                         <div class="project-tags">
                             <span>Certification</span>
                             <span>Year</span>
@@ -100,6 +106,19 @@
             </div>
         </div>
     </section>
+
+    <!-- Certificate Modal -->
+    <div class="modal-overlay" id="certModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-body">
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <div class="modal-tags" id="modalTags"></div>
+                <div class="modal-cert-image" id="modalCertImage"></div>
+                <div class="modal-description" id="modalDescription"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -157,6 +176,88 @@
         }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
         animatedElements.forEach(el => observer.observe(el));
+
+        // ===== Certificate Modal Data =====
+        const certsData = [
+            {
+                title: 'Certificate Title 1',
+                tags: ['Certification', 'Year'],
+                image: '', // Add certificate image path, e.g.: 'images/cert1.png'
+                description: `
+                    <p><strong>Issuing Organization:</strong> Organization Name</p>
+                    <p><strong>Date Issued:</strong> Month Year</p>
+                    <p>Provide a detailed explanation of this certificate here. Describe what you learned and how it contributes to your skill set.</p>
+                `
+            },
+            {
+                title: 'Certificate Title 2',
+                tags: ['Certification', 'Year'],
+                image: '', // Add certificate image path
+                description: `
+                    <p><strong>Issuing Organization:</strong> Organization Name</p>
+                    <p><strong>Date Issued:</strong> Month Year</p>
+                    <p>Provide a detailed explanation of this certificate here.</p>
+                `
+            },
+            {
+                title: 'Certificate Title 3',
+                tags: ['Certification', 'Year'],
+                image: '', // Add certificate image path
+                description: `
+                    <p><strong>Issuing Organization:</strong> Organization Name</p>
+                    <p><strong>Date Issued:</strong> Month Year</p>
+                    <p>Provide a detailed explanation of this certificate here.</p>
+                `
+            }
+        ];
+
+        // ===== Modal Functions =====
+        function openCertModal(index) {
+            const cert = certsData[index];
+            const modal = document.getElementById('certModal');
+
+            document.getElementById('modalTitle').textContent = cert.title;
+
+            // Tags
+            const tagsContainer = document.getElementById('modalTags');
+            tagsContainer.innerHTML = cert.tags.map(tag => `<span>${tag}</span>`).join('');
+
+            // Certificate Image
+            const certImage = document.getElementById('modalCertImage');
+            if (cert.image) {
+                certImage.innerHTML = `<img src="${cert.image}" alt="${cert.title}">`;
+            } else {
+                certImage.innerHTML = `
+                    <div class="modal-gallery-placeholder">
+                        <i class="fas fa-image"></i>
+                        <p>Certificate image will be added here</p>
+                    </div>
+                `;
+            }
+
+            // Description
+            document.getElementById('modalDescription').innerHTML = cert.description;
+
+            // Show modal
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('certModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close on overlay click
+        document.getElementById('certModal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) closeModal();
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
     </script>
 </body>
 </html>

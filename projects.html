@@ -52,54 +52,54 @@
     <section class="section" id="projects">
         <div class="container">
             <div class="projects-grid">
-                <div class="project-card" data-aos="fade-up">
+                <div class="project-card" data-aos="fade-up" onclick="openProjectModal(0)">
                     <div class="project-image">
                         <div class="project-image-placeholder">
                             <i class="fas fa-trophy"></i>
                         </div>
                         <div class="project-overlay">
-                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                            <span class="project-link"><i class="fas fa-expand"></i></span>
                         </div>
                     </div>
                     <div class="project-info">
                         <h3>Project Title 1</h3>
-                        <p>Brief description of this award-winning project. Explain what it was about and what award it received.</p>
+                        <p>Brief description of this award-winning project.</p>
                         <div class="project-tags">
                             <span>Award Winner</span>
                             <span>2024</span>
                         </div>
                     </div>
                 </div>
-                <div class="project-card" data-aos="fade-up">
+                <div class="project-card" data-aos="fade-up" onclick="openProjectModal(1)">
                     <div class="project-image">
                         <div class="project-image-placeholder">
                             <i class="fas fa-award"></i>
                         </div>
                         <div class="project-overlay">
-                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                            <span class="project-link"><i class="fas fa-expand"></i></span>
                         </div>
                     </div>
                     <div class="project-info">
                         <h3>Project Title 2</h3>
-                        <p>Brief description of this project. Highlight the skills used and the impact it created.</p>
+                        <p>Brief description of this project.</p>
                         <div class="project-tags">
                             <span>Competition</span>
                             <span>2023</span>
                         </div>
                     </div>
                 </div>
-                <div class="project-card" data-aos="fade-up">
+                <div class="project-card" data-aos="fade-up" onclick="openProjectModal(2)">
                     <div class="project-image">
                         <div class="project-image-placeholder">
                             <i class="fas fa-medal"></i>
                         </div>
                         <div class="project-overlay">
-                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                            <span class="project-link"><i class="fas fa-expand"></i></span>
                         </div>
                     </div>
                     <div class="project-info">
                         <h3>Project Title 3</h3>
-                        <p>Brief description of another notable work. Describe the process and outcome.</p>
+                        <p>Brief description of another notable work.</p>
                         <div class="project-tags">
                             <span>Featured</span>
                             <span>2023</span>
@@ -109,6 +109,19 @@
             </div>
         </div>
     </section>
+
+    <!-- Project Modal -->
+    <div class="modal-overlay" id="projectModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-body">
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <div class="modal-tags" id="modalTags"></div>
+                <div class="modal-gallery" id="modalGallery"></div>
+                <div class="modal-description" id="modalDescription"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -166,6 +179,103 @@
         }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
         animatedElements.forEach(el => observer.observe(el));
+
+        // ===== Project Modal Data =====
+        // Replace placeholder images with your actual screenshots
+        const projectsData = [
+            {
+                title: 'Project Title 1',
+                tags: ['Award Winner', '2024'],
+                images: [
+                    // Add your project screenshot paths here, e.g.:
+                    // 'images/project1-screen1.png',
+                    // 'images/project1-screen2.png',
+                ],
+                description: `
+                    <p>Provide a detailed explanation of Project 1 here. Describe what the project is about, the problem it solves, and the technologies used.</p>
+                    <p><strong>Technologies:</strong> Flutter, Supabase, Dart</p>
+                    <p><strong>Role:</strong> Full-stack Developer</p>
+                    <p><strong>Achievement:</strong> Won first place in the competition.</p>
+                `
+            },
+            {
+                title: 'Project Title 2',
+                tags: ['Competition', '2023'],
+                images: [
+                    // Add your project screenshot paths here
+                ],
+                description: `
+                    <p>Provide a detailed explanation of Project 2 here. Describe the skills used and the impact it created.</p>
+                    <p><strong>Technologies:</strong> Python, Tableau</p>
+                    <p><strong>Role:</strong> Data Analyst</p>
+                    <p><strong>Achievement:</strong> Participated in a national-level datathon.</p>
+                `
+            },
+            {
+                title: 'Project Title 3',
+                tags: ['Featured', '2023'],
+                images: [
+                    // Add your project screenshot paths here
+                ],
+                description: `
+                    <p>Provide a detailed explanation of Project 3 here. Describe the process and outcome.</p>
+                    <p><strong>Technologies:</strong> HTML, CSS, JavaScript</p>
+                    <p><strong>Role:</strong> Frontend Developer</p>
+                `
+            }
+        ];
+
+        // ===== Modal Functions =====
+        function openProjectModal(index) {
+            const project = projectsData[index];
+            const modal = document.getElementById('projectModal');
+
+            document.getElementById('modalTitle').textContent = project.title;
+
+            // Tags
+            const tagsContainer = document.getElementById('modalTags');
+            tagsContainer.innerHTML = project.tags.map(tag => `<span>${tag}</span>`).join('');
+
+            // Gallery
+            const gallery = document.getElementById('modalGallery');
+            if (project.images.length > 0) {
+                gallery.innerHTML = project.images.map(img =>
+                    `<div class="modal-gallery-item"><img src="${img}" alt="${project.title} screenshot"></div>`
+                ).join('');
+                gallery.style.display = 'grid';
+            } else {
+                gallery.innerHTML = `
+                    <div class="modal-gallery-placeholder">
+                        <i class="fas fa-images"></i>
+                        <p>Project screenshots will be added here</p>
+                    </div>
+                `;
+                gallery.style.display = 'block';
+            }
+
+            // Description
+            document.getElementById('modalDescription').innerHTML = project.description;
+
+            // Show modal
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('projectModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close on overlay click
+        document.getElementById('projectModal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) closeModal();
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
     </script>
 </body>
 </html>
